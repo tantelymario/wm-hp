@@ -1,9 +1,23 @@
 #include<iostream>
+#include<memory>
+#include<fstream>
+#include "include/window_manager.h"
 
-using namespace std;
+using ::std::unique_ptr;
 int main()
 {
-    int a = 0;
-    cout<< "Hellooo ! : "<< a << "\n" ;
+    std::ofstream output;
+    output.open("logs/output.log");
+    unique_ptr<WindowManager> wm = WindowManager::Create();
+    if(!wm)
+    {
+        output << "Failed to initialize window\n";
+    }
+    else
+    {
+        output << "Initialization success !!\n";
+        wm->Run();
+    }
+    output.close();
     return 0;
 }
